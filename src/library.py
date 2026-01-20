@@ -39,3 +39,15 @@ class Library:
             raise KeyError("book not found")
 
         self.books[book_id].borrowed = False
+
+    
+    def generate_report(self) -> str:
+        lines = ["BOOK_ID\tTITLE\tAUTHOR\tSTATUS"]
+
+        for book in self.books.values():
+            status = "Borrowed" if book.borrowed else "Available"
+            lines.append(
+                f"{book.book_id}\t{book.title}\t{book.author}\t{status}"
+            )
+
+        return "\n".join(lines)

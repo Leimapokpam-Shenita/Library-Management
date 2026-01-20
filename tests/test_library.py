@@ -21,7 +21,7 @@ class TestLibrarySprint2(unittest.TestCase):
 
     def setUp(self):
         self.library = Library()
-        self.library.add_book("B101", "Clean Code", "Robert C. Martin")
+        self.library.add_book("B101", "	The Stranger", "Albert Camus")
 
     def test_borrow_available_book(self):
         self.library.borrow_book("B101")
@@ -36,3 +36,16 @@ class TestLibrarySprint2(unittest.TestCase):
         self.library.borrow_book("B101")
         self.library.return_book("B101")
         self.assertFalse(self.library.books["B101"].borrowed)
+class TestLibrarySprint3(unittest.TestCase):
+
+    def setUp(self):
+        self.library = Library()
+        self.library.add_book("B101", "The Stranger", "Albert Camus")
+
+    def test_report_contains_header(self):
+        report = self.library.generate_report()
+        self.assertIn("BOOK_ID\tTITLE\tAUTHOR\tSTATUS", report)
+
+    def test_report_contains_book_entry(self):
+        report = self.library.generate_report()
+        self.assertIn("B101", report)
