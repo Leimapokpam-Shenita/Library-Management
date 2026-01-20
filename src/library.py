@@ -6,6 +6,7 @@ class Book:
     book_id: str
     title: str
     author: str
+    borrowed: bool = False 
 
 @dataclass
 class Library:
@@ -23,3 +24,18 @@ class Library:
             title=title,
             author=author
         )
+
+    def borrow_book(self, book_id: str) -> None:
+        if book_id not in self.books:
+            raise KeyError("book not found")
+
+        if self.books[book_id].borrowed:
+            raise ValueError("book already borrowed")
+
+        self.books[book_id].borrowed = True
+
+    def return_book(self, book_id: str) -> None:
+        if book_id not in self.books:
+            raise KeyError("book not found")
+
+        self.books[book_id].borrowed = False
